@@ -43,6 +43,9 @@ func Layer(filemap map[string][]byte) (v1.Layer, error) {
 		if err := w.WriteHeader(&tar.Header{
 			Name: f,
 			Size: int64(len(c)),
+			// from pkg/legacy/tarball writeTarEntry
+			Mode:     0644,
+			Typeflag: tar.TypeReg,
 		}); err != nil {
 			return nil, err
 		}
